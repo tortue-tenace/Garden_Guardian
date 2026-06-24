@@ -1,4 +1,4 @@
-def garden_operations(operation_number):
+def garden_operations(operation_number: int) -> None:
     """
     0: ValueError
     1: ZeroDivisionError
@@ -17,29 +17,35 @@ def garden_operations(operation_number):
         return
 
 
-def test_error_types():
-    try:
-        garden_operations(0)
-    except ValueError as e:
-        print(f"[Caught ValueError]: Bad data provided to int(). Details: {e}")
-    try:
-        garden_operations(1)
-    except ZeroDivisionError as e:
-        print(f"[Caught ZeroDivisionError]: Attempted to divide by zero. Details: {e}")
-    try:
-        garden_operations(2)
-    except FileNotFoundError as e:
-        print(f"[Caught FileNotFoundError]: Tried opening a missing file. Details: {e}")
-    try:
-        garden_operations(3)
-    except TypeError as e:
-        print(f"[Caught TypeError]: Invalid type mixing attempted. Details: {e}")
-    for op in [0, 1]:
+def test_error_types() -> None:
+    print("=== Garden Error Types Demo ===")
+
+    for operation_number in (0, 1, 2, 3, 4):
+        print(f"Testing operation {operation_number}...")
         try:
-            print(f"Executing operation {op} inside the multi-catch block...")
-            garden_operations(op)
+            garden_operations(operation_number)
+        except ValueError as e:
+            print(f"Caught ValueError: {e}")
+        except ZeroDivisionError as e:
+            print(f"Caught ZeroDivisionError: {e}")
+        except FileNotFoundError as e:
+            print(f"Caught FileNotFoundError: {e}")
+        except TypeError as e:
+            print(f"Caught TypeError: {e}")
+        else:
+            print("Operation completed successfully")
+
+    print()
+    print("Testing multi-catch with a single try block...")
+    for operation_number in (0, 1):
+        try:
+            garden_operations(operation_number)
         except (ValueError, ZeroDivisionError) as e:
-            print(f"  [Multi-Catch Triggered]: Safely intercepted a ValueError or ZeroDivisionError!")
+            print(f"Caught a ValueError or ZeroDivisionError: {e}")
+
+    print()
+    print("All error types tested successfully!")
+
 
 if __name__ == "__main__":
     test_error_types()
